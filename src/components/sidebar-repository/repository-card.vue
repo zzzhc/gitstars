@@ -1,12 +1,19 @@
 <template>
   <div class="flex items-center justify-between font-bold text-[#948aec]">
-    <h2 class="hover:underline">
-      <a :href="repository.html_url" rel="noopener noreferrer">
-        <span
-          >{{ repository.owner.login }} / {{ repository.name }}
-          <svg-icon name="share" class="text-xs"
-        /></span>
+    <h2>
+      <span
+        v-if="medalMap[repository.ranking]"
+        v-html="medalMap[repository.ranking]"
+        class="mr-1"
+      ></span>
+      <a
+        :href="`https://github.com/${repository.owner.login}/${repository.name}`"
+        rel="noopener noreferrer"
+        class="hover:underline"
+      >
+        {{ repository.owner.login }} / {{ repository.name }}
       </a>
+      <svg-icon name="share" class="ml-1 text-xs" />
     </h2>
 
     <a
@@ -19,17 +26,22 @@
     </a>
   </div>
 
-  <ul class="flex flex-wrap text-xs text-gray-300" @click="handleClickTopic">
+  <ul
+    class="flex flex-wrap text-xs text-gray-300"
+    :class="{ disabled: disableTopic }"
+    @click="handleClickTopic"
+  >
     <li
       v-for="topic in repository.topics"
       :key="topic"
       :data-topic="topic"
       :class="{
         'selected-tag':
-          tagStore.selectedType === TAG_TYPE.topic &&
-          tagStore.selected === topic,
+          !disableTopic &&
+          tagStore.selectedTagType === TAG_TYPE.topic &&
+          tagStore.selectedTag === topic,
       }"
-      class="mr-1 mt-1 rounded-full border border-solid border-gray-300 px-2 hover:border-[#948aec] hover:bg-[#948aec] hover:!text-white"
+      class="tag-topic mr-1 mt-1 rounded-full border border-solid border-gray-300 px-2 hover:border-[#948aec] hover:bg-[#948aec] hover:!text-white"
     >
       {{ topic }}
     </li>
@@ -55,8 +67,9 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import { useTagStore } from '@/store/tag';
-import { TAG_TYPE } from '@/constants';
+import { TAG_SRC, TAG_TYPE } from '@/constants';
 
 defineProps({
   repository: {
@@ -65,18 +78,26 @@ defineProps({
   },
 });
 
+const medalMap = {
+  1: '&#129351;',
+  2: '&#129352;',
+  3: '&#129353;',
+};
 const tagStore = useTagStore();
+const disableTopic = computed(() => tagStore.tagSrc !== TAG_SRC.self);
 
 function handleClickTopic(e) {
+  if (disableTopic.value) return;
+
   let elTag = e.target;
   while (!elTag.dataset.topic) {
     elTag = elTag.parentElement;
     if (!elTag) return;
   }
   tagStore.$patch({
-    selectedType: TAG_TYPE.topic,
-    selectedNav: TAG_TYPE.topic,
-    selected: elTag.dataset.topic,
+    selectedTagTypeNav: TAG_TYPE.topic,
+    selectedTagType: TAG_TYPE.topic,
+    selectedTag: elTag.dataset.topic,
   });
 }
 </script>
@@ -85,5 +106,9 @@ function handleClickTopic(e) {
 .selected-tag {
   border-color: var(--primary);
   color: var(--primary);
+}
+
+.disabled .tag-topic {
+  cursor: not-allowed;
 }
 </style>

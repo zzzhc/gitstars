@@ -4,7 +4,7 @@
       <svg-icon name="search" class="absolute left-2 top-2 text-gray-400" />
 
       <input
-        :placeholder="`开发者 | 仓库名 @${tagStore.selected || '全部'}`"
+        placeholder="开发者 | 仓库名 | 描述"
         ref="refInput"
         type="text"
         class="h-7 w-full flex-auto rounded-full bg-white px-6 outline-none"
@@ -20,6 +20,7 @@
     </div>
 
     <div
+      v-show="tagStore.tagSrc === TAG_SRC.self"
       :aria-label="sortTypeLabel"
       role="tooltip"
       data-microtip-position="top"
@@ -32,7 +33,11 @@
     </div>
 
     <div
-      v-if="repositoryStore.all.length !== 0 && repositoryStore.loading"
+      v-if="
+        tagStore.tagSrc === TAG_SRC.self &&
+        repositoryStore.all.length !== 0 &&
+        repositoryStore.loading
+      "
       aria-label="仓库更新中"
       role="tooltip"
       data-microtip-position="top"
@@ -48,7 +53,7 @@ import { computed, ref } from 'vue';
 import { useRepositoryStore } from '@/store/repository';
 import { useTagStore } from '@/store/tag';
 import { debounce } from 'lodash';
-import { REPO_SORT_TYPE } from '@/constants';
+import { REPO_SORT_TYPE, TAG_SRC } from '@/constants';
 
 const tagStore = useTagStore();
 const repositoryStore = useRepositoryStore();

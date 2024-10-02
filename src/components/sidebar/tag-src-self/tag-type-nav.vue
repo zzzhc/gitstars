@@ -5,7 +5,7 @@
     <li
       v-for="nav in navList"
       :key="nav"
-      :class="{ selected: nav === tagStore.selectedNav }"
+      :class="{ selected: nav === tagStore.selectedTagTypeNav }"
       class="h-full w-1/3 flex-auto cursor-pointer border-r border-solid border-gray-500 text-center capitalize leading-8 last:border-none"
       @click="handleClickNav(nav)"
     >
@@ -22,7 +22,7 @@ const navList = Object.values(TAG_TYPE);
 const tagStore = useTagStore();
 
 function handleClickNav(nav) {
-  tagStore.$patch({ selectedNav: nav });
+  tagStore.$patch({ selectedTagTypeNav: nav });
 }
 </script>
 

@@ -1,49 +1,54 @@
 ![](public/brand.png)
 
+<div align="center">
+
+简体中文 / [English](./README-EN.md)
+
+Github Stars 存储库管理器
+
+</div>
+
+## 🎯 背景
+
 Github 作为开发者的第一社交平台，拥有数不胜数的优秀开源项目，给工作和学习带来巨大方便，遇到自己需要或是喜爱的项目只需点击 Star 便可收入囊中。
 
 Star is easy，可随着 Starred Repositories 增长，在需要使用到某个项目时难免记不清叫什么，而 Github 又只提供简单的搜索，找到目标 Starred Repository 竟也成了件小小的麻烦事。
 
 所以拥有自己的 Github Stars Repositories Manager 也算是开发者的必备需求。
 
-之前有使用过市面上的一些相关工具，比如 Astral。虽说能用，但总觉得不顺手、不好用。
+Gitstars 由此诞生 💡
 
-Gitstars 由此诞生 🎉
+## 👀 发现好项目：Gitstars Ranking（2023-09-09）
 
-## Example
+<strong>Gitstars Ranking</strong>：帮助你发现 Github Stars 数量排名前 100 的好项目，支持各种编程语言分类，每日更新。
 
-![](public/example-gitstars.png)
+![](public/example-github-ranking.png)
 
-## 说明
+## 🚀 快速找到自己 Star 的仓库：Your Stars
 
-Gitstars 根据 Topics 和 Language 对 Repositories 进行分类，方便快速找到目标 Repository。
+<strong>Your Stars</strong>：整理你的 Stars 仓库，根据 Topics 和 Language 进行分类，帮助你快速找到目标项目。
 
-### 什么是 Topics？
+![](public/example-your-stars.png)
 
-Repository 的标签集。
+## 👻 其它特性
+
+- <strong>README.md 预览</strong>：无需跳转到 Github 查看 README.md，在 Gitstars 即可查看。
+- <strong>链接直达</strong>：Github 仓库、项目 Webiste；
+
+## 📖 说明
+
+### Topics：仓库的标签集
 
 标签集由 Repository 作者定义，一般都是与 Repository 相关的关键词，大多以英文为主。
 
 ![](public/example-topics.png)
 
-### 什么是 Language？
-
-Repository 的主编程语言。
+### Language：仓库的主编程语言
 
 Github 会统计分析 Repository 的文件，确定 Repository 的主编程语言。
 
 ![](public/example-languages.png)
 
-## 现有问题
-
-### [issues38](https://github.com/cfour-hi/gitstars/issues/38) - Github 授权后页面一直处于加载中，无法进入主页面。
-
-原因：GitHub 授权后获取 access_token 失败
-
-![](https://user-images.githubusercontent.com/8335856/255381635-b0911e89-53d3-466a-8e52-bd3edb0fad3a.png)
-
-GitHub API 20.205.243.166 节点偶现连接超时，暂时没有想到好的解决方案，希望有大佬能提供支持。
-
-## Vercel 部署
+## 🤖 Vercel 部署
 
 [WIKI Vercel 部署](https://github.com/cfour-hi/gitstars/wiki/Vercel-%E9%83%A8%E7%BD%B2)
